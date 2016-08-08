@@ -1,0 +1,66 @@
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <style>
+    /*
+      must set height of chart so popver sizes correctly
+      width is optional and will default to popover-content width ~200px
+     */
+    .popover-chart {
+      height: 600px;
+      width: 400px;
+    }
+    /*
+      since we're using a width > popover default,
+      need to update max width accounting for margins/padding
+     */
+    .popover {
+      max-width: 432px;
+    }
+  </style>
+
+  <script>
+  // once page loads...
+  $(function () {
+    // wire up all popovers
+    $('[data-toggle="popover"]').popover({
+      // popover content is a div
+      html: true
+    }).on('shown.bs.popover', function(e) {
+      // whenever the popover is shown
+      // create a cedar chart using the known 'bar' type
+      // this is the same as passing {"specification": "path/to/cedar/charts/bar.json"}
+      var chart = new Cedar({"type": "bar"});
+      //create the dataset w/ mappings
+      var dataset = {
+        "url":"https://services.arcgis.com/uDTUpUPbk8X8mXwl/arcgis/rest/services/Public_Schools_in_Onondaga_County/FeatureServer/0",
+        "query": {
+          "groupByFieldsForStatistics": "Type",
+          "outStatistics": [{
+            "statisticType": "sum",
+            "onStatisticField": "Number_of",
+            "outStatisticFieldName": "Number_of_SUM"
+          }]
+        },
+        "mappings":{
+          "sort": "Number_of_SUM DESC",
+          "x": {"field":"Type","label":"Facility Use"},
+          "y": {"field":"Number_of_SUM","label":"Total Students"}
+        }
+      };
+
+      chart.tooltip = {
+        "title": "{Type}",
+        "content": "{Number_of_SUM} Students in {Type}"
+      }
+
+      //assign to the chart
+      chart.dataset = dataset;
+
+      //show the chart
+      chart.show({
+        // TODO: get the id from the element
+        elementId: "#popoverChart"
+      });
+    })
+  })
+  </script>

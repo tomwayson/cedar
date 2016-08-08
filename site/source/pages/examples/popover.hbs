@@ -1,0 +1,21 @@
+---
+title: Chart in a Popover
+layout: example.hbs
+---
+
+<h2>Example</h2>
+<div>
+  <button type="button" class="btn btn-lg btn-primary"
+  data-toggle="popover"
+  title="Studens by Facility Use"
+  data-content="<div id='popoverChart' class='popover-chart'></div>">Show Chart</button>
+</div>
+
+<h2>Code</h2>
+{{#markdown}}
+```html
+{{>example-popover}}
+```
+{{/markdown}}
+
+{{>example-popover}}
