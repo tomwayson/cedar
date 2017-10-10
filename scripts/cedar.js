@@ -1,5 +1,5 @@
 /**
-* @esri/cedar - v1.0.0-beta - Tue Oct 10 2017 02:07:58 GMT-0700 (PDT)
+* @esri/cedar - v1.0.0-beta - Tue Oct 10 2017 02:09:11 GMT-0700 (PDT)
 * Copyright (c) 2017 Environmental Systems Research Institute, Inc.
 * Apache-2.0
 */
